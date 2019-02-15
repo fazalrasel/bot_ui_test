@@ -29,14 +29,8 @@ var api = require('../config/api');
 io.on('connection', (socket) => {
   console.log('Client connected');
   socket.on('disconnect', () => console.log('Client disconnected'));
-  socket.on('fromClient', function (data) {
-        console.log(data.client);
-         api.getRes(data.client).then(function(res){
-           console.log('response', res);
-            socket.emit('fromServer', { server: res });
-         });
-  });
 });
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 /**
  * Listen on provided port, on all network interfaces.
  */
